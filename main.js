@@ -74,7 +74,7 @@ function checkPalindromeForAllDateFormats(date) {
     var flag = false;
 
     for (var i = 0; i < listOfPalindromes.length; i++) {
-        if (isPalindrome(listOfPalindromes[i])) {
+        if (palindromeChecker(listOfPalindromes[i])) {
             flag = true;
             break;
         }
@@ -82,7 +82,7 @@ function checkPalindromeForAllDateFormats(date) {
     return flag;
 }
 
-// check for leap year
+// check if the year is a leap year or not
 function isLeapYear(year) {
     if (year % 400 === 0) {
         return true;
@@ -138,3 +138,48 @@ function getNextDate(date) {
         month: month,
         year: year
     };
+
+    // get next  palindrome date
+    function getNextPalindromeDate(date) {
+        var ctr = 0;
+        var nextDate = getNextDate(date);
+
+        while (1) {
+            ctr++;
+            var palindromeChecker = checkPalindromeForAllDateFormats(nextDate);
+            if (palindromeChecker) {
+                break;
+            }
+            nextDate = getNextDate(nextDate);
+        }
+        return [ctr, nextDate];
+    }
+
+
+    const dateInputRef = document.querySelector("#bday-input");
+    const showBtnRef = document.querySelector("#show-btn");
+    const resultRef = document.querySelector("#output");
+
+    showBtnRef.addEventListener("click", clickHandler);
+
+    function clickHandler() {
+        var bdayStr = dateInputRef.value;
+
+        if (bdayStr !== "") {
+            var listOfDate = bdayStr.split("-");
+            var date = {
+                day: Number(listOfDate[2]),
+                month: Number(listOfDate[1]),
+                year: Number(listOfDate[0])
+            };
+
+            var isPalindrome = checkPalindromeForAllDateFormats(date);
+
+            if (isPalindrome) {
+                resultRef.innerText = "WoW!... Your Birthday is a Palindrome!! 🎉🎉"
+            } else {
+                var [ctr, nextDate] = getNextPalindromeDate(date);
+                resultRef.innerText = `The next palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${ctr} days! 😔` //'The next Palindrome date is' ${nextDate.day}-${nextDate.month}-${nextDate.year}',you missed it by' ${ctr} 'days!😥 '
+            }
+        }
+    }
