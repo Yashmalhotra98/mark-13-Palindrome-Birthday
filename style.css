@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main h1 {
+    margin-bottom: 2rem;
+}
+
+.main input {
+    width: 10rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+#show-btn {
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
